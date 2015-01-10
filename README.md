@@ -52,7 +52,7 @@ Usage
 
 As a command:
 
-    node cup.js node cup.js "3d6 3d6 1d52 1d4"
+    node cup.js "3d6 3d6 1d52 1d4"
 
 Tests
 -----
