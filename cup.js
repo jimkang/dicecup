@@ -1,4 +1,5 @@
-var probable = require('probable');
+#!/usr/bin/env node
+
 var createDiceCup = require('./dicecup');
 
 if (process.argv.length < 3) {
@@ -8,8 +9,6 @@ if (process.argv.length < 3) {
 
 var diceString = process.argv[2];
 
-var cup = createDiceCup({
-  probable: probable
-});
+var cup = createDiceCup();
 
-console.log(cup.roll(diceString));
+console.log(JSON.stringify(cup.roll(diceString), null, '  '));
