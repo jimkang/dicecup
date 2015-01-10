@@ -182,3 +182,13 @@ test('Multi-series', function multiSeriesTests(t) {
   });
 
 });
+
+test('No opts', function testNoOps(t) {
+  t.plan(2);
+
+  var cup = createDiceCup();
+  t.equal(typeof cup, 'object', 'Cup object is created even without opts.');
+
+  var result = cup.roll('2d4');
+  t.ok(result[0].total >= 2 && result[0].total <=8, 'Result is valid.');
+});

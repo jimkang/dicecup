@@ -1,6 +1,11 @@
+var probableModule = require('probable');
 
 function createDiceCup(opts) {
-  var probable = opts.probable;
+  var probable = probableModule;
+
+  if (opts && opts.probable) {
+    probable = opts.probable;
+  }
 
   function rollDice(diceString) {
     var dieStrings = diceString.trim().split(' ');
