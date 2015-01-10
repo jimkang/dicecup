@@ -1,22 +1,22 @@
 {
-  "name": "dice-cup",
+  "name": "dicecup",
   "version": "1.0.0",
-  "description": "Rolls dice over Twitter and the command line.",
+  "description": "Interprets strings (e.g. '1d6+1') to roll dice.",
   "main": "dicecup.js",
   "scripts": {
     "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:jimkang/dice-cup.git"
+    "url": "git@github.com:jimkang/dicecup.git"
   },
   "keywords": [],
   "author": "Jim Kang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jimkang/dice-cup/issues"
+    "url": "https://github.com/jimkang/dicecup/issues"
   },
-  "homepage": "https://github.com/jimkang/dice-cup",
+  "homepage": "https://github.com/jimkang/dicecup",
   "devDependencies": {
     "tape": "^3.0.3"
   },
