@@ -39,7 +39,7 @@ test('Rolls', function typicalTests(t) {
       rolls: [20],
       total: 20
     },
-    '10d6 - 10': {
+    '10d6-10': {
       rolls: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
       total: 50
     },
@@ -62,6 +62,10 @@ test('Rolls', function typicalTests(t) {
     '124345d46456': {
       rolls: createRepeatArray(46456, 124345),
       total: 5776571320
+    },
+    'justnumbers+600': {
+      rolls: [],
+      total: 600
     }
   }
 

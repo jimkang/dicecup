@@ -37,9 +37,15 @@ function parse(command) {
     throw new Error('Parameter `command` must be a string, not undefined');
   }
 
-  // determine number of dice to roll
-  var times = command.match(/(\d+)d/i);
-  parsed.times = times && times[1] && parseInt(times[1]) || 1;
+  if (command.search(/d/i) !== -1) {
+    // determine number of dice to roll
+    var times = command.match(/(\d+)d/i);
+    parsed.times = times && times[1] && parseInt(times[1]) || 1;
+  }
+  else {
+    // If there's no 'd' anywhere in there, then there's no dice to roll.
+    parsed.times = 0;
+  }
 
   // determine the number of faces
   var faces = command.match(/d(\d+)/i);
