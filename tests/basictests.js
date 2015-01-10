@@ -6,8 +6,8 @@ var createDiceCup = require('../dicecup');
 // the results should be.
 
 var mockProbable = {
-  roll: function mockRoll(sides) {
-    return sides - 1;
+  rollDie: function rollDie(sides) {
+    return sides;
   }
 };
 

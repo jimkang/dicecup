@@ -16,7 +16,7 @@ function createDiceCup(opts) {
     };
 
     for (var i = 0; i < characterstics.times; ++i) {
-      results.rolls.push(probable.roll(characterstics.faces) + 1);
+      results.rolls.push(probable.rollDie(characterstics.faces));
     }
     results.total = results.rolls.reduce(add, 0) + characterstics.modifier;
 

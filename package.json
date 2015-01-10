@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "node-dice-js": "^0.1.2",
-    "probable": "^1.0.0"
+    "probable": "^1.1.0"
   }
 }
