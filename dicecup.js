@@ -2,11 +2,14 @@
 function createDiceCup(opts) {
   var probable = opts.probable;
 
-  function roll(diceString) {
-    var trimmedString = diceString.replace(/\s/g, '');
-    console.log(trimmedString);
-    var characterstics = parse(trimmedString);
-    console.log(characterstics);
+  function rollDice(diceString) {
+    var dieStrings = diceString.trim().split(' ');
+    return dieStrings.map(rollDie);
+  }
+
+  function rollDie(dieString) {
+    var characterstics = parse(dieString);
+    //console.log(characterstics);
     var results = {
       rolls: [],
       total: 0
@@ -21,7 +24,7 @@ function createDiceCup(opts) {
   }
 
   return {
-    roll: roll
+    roll: rollDice
   };
 }
 
@@ -30,6 +33,7 @@ function add(a, b) {
 }
 
 // From https://github.com/NickMele/node-dice/, slightly modified.
+
 function parse(command) {
   var parsed = {};
 
