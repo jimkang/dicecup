@@ -80,7 +80,7 @@ test('Single-series', function singleSeriesTests(t) {
         total: 0
       }
     ],
-    '3d-1': [
+    '3d0-1': [
       {
         rolls: [0, 0, 0],
         total: -1
@@ -192,3 +192,16 @@ test('No opts', function testNoOps(t) {
   var result = cup.roll('2d4');
   t.ok(result[0].total >= 2 && result[0].total <=8, 'Result is valid.');
 });
+
+
+
+test('No dice in string', function noDiceInString(t) {
+  t.plan(1);
+  
+  var cup = createDiceCup({
+    probable: mockProbable
+  });
+
+  t.deepEqual(cup.roll('fhqwhgads'), [undefined]);
+});
+

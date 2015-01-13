@@ -14,7 +14,11 @@ function createDiceCup(opts) {
 
   function rollDie(dieString) {
     var characterstics = parse(dieString);
-    //console.log(characterstics);
+    if (!characterstics) {
+      return undefined;
+    }
+
+    // console.log(characterstics);
     var results = {
       rolls: [],
       total: 0
@@ -46,14 +50,20 @@ function parse(command) {
     throw new Error('Parameter `command` must be a string, not undefined');
   }
 
-  if (command.search(/d/i) !== -1) {
+  if (command.search(/d\d/i) !== -1) {
     // determine number of dice to roll
     var times = command.match(/(\d+)d/i);
     parsed.times = times && times[1] && parseInt(times[1]) || 1;
   }
   else {
-    // If there's no 'd' anywhere in there, then there's no dice to roll.
-    parsed.times = 0;
+    // If there's no 'd{number}' anywhere in there, then there's no dice to roll.
+    if (command.search(/\d/i) === -1) {
+      // If there's not even digits in there, then there's nothing to do.
+      return undefined;
+    }
+    else {
+      parsed.times = 0;
+    }
   }
 
   // determine the number of faces
