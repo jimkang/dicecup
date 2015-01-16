@@ -36,7 +36,13 @@ It will apply modifiers (pluses and minuses) and will provide a total for each s
       }
     ]
 
-There's no limits on the number of dice you want to roll. `node cup.js 999999d6` works on my machine. It's up to you to to limit the resources taken up by `roll`.
+By default, there's no limits on the number of dice you want to roll. `node cup.js 999999d6` works on my machine. It's up to you to to limit the resources taken up by `roll` by creating diceCup with the `numberOfFacesOnLargestDie` and `numberOfRollsLimit` opts like so: 
+
+    var cup = createDiceCup({
+      probable: mockProbable,
+      numberOfFacesOnLargestDie: 50000,
+      numberOfRollsLimit: 125000
+    });
 
 Installation
 ------------

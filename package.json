@@ -1,6 +1,6 @@
 {
   "name": "dicecup",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Interprets strings (e.g. '1d6+1') to roll dice.",
   "main": "dicecup.js",
   "bin": {
@@ -24,6 +24,7 @@
     "tape": "^3.0.3"
   },
   "dependencies": {
+    "lodash": "^2.4.1",
     "node-dice-js": "^0.1.2",
     "probable": "^1.1.0"
   }

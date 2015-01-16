@@ -1,35 +1,75 @@
 var probableModule = require('probable');
+var _ = require('lodash');
 
 function createDiceCup(opts) {
   var probable = probableModule;
+  var numberOfRollsLimit;
+  var numberOfFacesOnLargestDie;
+  var error;
 
-  if (opts && opts.probable) {
-    probable = opts.probable;
+  if (opts) {
+    if (opts.probable) {
+      probable = opts.probable;
+    }
+    if (opts.numberOfRollsLimit) {
+      numberOfRollsLimit = opts.numberOfRollsLimit;
+    }
+    if (opts.numberOfFacesOnLargestDie) {
+      numberOfFacesOnLargestDie = opts.numberOfFacesOnLargestDie;
+    }
   }
 
   function rollDice(diceString) {
     var dieStrings = diceString.trim().split(' ');
-    return dieStrings.map(rollDie);
-  }
+    var parsedDiceSpecs = dieStrings.map(parse);
+    parsedDiceSpecs = parsedDiceSpecs.filter(_.isObject);
 
-  function rollDie(dieString) {
-    var characterstics = parse(dieString);
-    if (!characterstics) {
-      return undefined;
+    if (parsedDiceSpecs.some(specHasTooManyDice)) {
+      error = new Error('I can\'t roll that many times.');
+      error.name = 'Too many rolls';
+    }
+    else if (parsedDiceSpecs.some(specHasTooManyFaces)) {
+      error = new Error('I don\'t have a die with that many faces.');
+      error.name = 'Not enough faces';
     }
 
-    // console.log(characterstics);
+    if (error) {
+      return {
+        error: error,
+        rolls: [],
+        total: NaN        
+      };
+    }
+    else {
+      return parsedDiceSpecs.map(rollDie);
+    }
+  }
+
+  function rollDie(diceSpec) {    
     var results = {
       rolls: [],
       total: 0
     };
 
-    for (var i = 0; i < characterstics.times; ++i) {
-      results.rolls.push(probable.rollDie(characterstics.faces));
+    for (var i = 0; i < diceSpec.times; ++i) {
+      results.rolls.push(probable.rollDie(diceSpec.faces));
     }
-    results.total = results.rolls.reduce(add, 0) + characterstics.modifier;
+    results.total = results.rolls.reduce(add, 0) + diceSpec.modifier;
 
     return results;
+  }
+
+  function specHasTooManyDice(diceSpec) {
+    return (
+      numberOfRollsLimit !== undefined && diceSpec.times > numberOfRollsLimit
+    );
+  }
+
+  function specHasTooManyFaces(diceSpec) {
+    return (
+      numberOfFacesOnLargestDie !== undefined && 
+      diceSpec.faces > numberOfFacesOnLargestDie
+    );
   }
 
   return {
