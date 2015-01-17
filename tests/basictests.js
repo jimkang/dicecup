@@ -92,12 +92,14 @@ test('Single-series', function singleSeriesTests(t) {
         total: 5776571320
       }
     ],
-    'justnumbers+600': [
+    'justnumbers+600': [],
+    '@r0llb0t d20!!!': [
       {
-        rolls: [],
-        total: 600      
+        rolls: [20],
+        total: 20
       }
     ]
+
   }
 
   var diceStrings = Object.keys(outcomesForDiceStrings);

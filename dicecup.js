@@ -97,13 +97,7 @@ function parse(command) {
   }
   else {
     // If there's no 'd{number}' anywhere in there, then there's no dice to roll.
-    if (command.search(/\d/i) === -1) {
-      // If there's not even digits in there, then there's nothing to do.
-      return undefined;
-    }
-    else {
-      parsed.times = 0;
-    }
+    return undefined;
   }
 
   // determine the number of faces
