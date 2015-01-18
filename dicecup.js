@@ -48,7 +48,8 @@ function createDiceCup(opts) {
   function rollDie(diceSpec) {    
     var results = {
       rolls: [],
-      total: 0
+      total: 0,
+      source: diceSpec
     };
 
     for (var i = 0; i < diceSpec.times; ++i) {

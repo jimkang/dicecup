@@ -92,22 +92,27 @@ test('Single-series', function singleSeriesTests(t) {
         total: 5776571320
       }
     ],
-    'justnumbers+600': [],
     '@r0llb0t d20!!!': [
       {
         rolls: [20],
         total: 20
       }
     ]
-
   }
 
   var diceStrings = Object.keys(outcomesForDiceStrings);
   
-  t.plan(diceStrings.length);
-
+  t.plan(diceStrings.length * 3);
+  
   diceStrings.forEach(function rollString(diceString) {
-    t.deepEqual(cup.roll(diceString), outcomesForDiceStrings[diceString]);
+    var results = cup.roll(diceString);
+    var expectedResults = outcomesForDiceStrings[diceString];
+
+    results.forEach(function checkResult(result, i) { 
+      t.deepEqual(result.rolls, expectedResults[i].rolls);
+      t.equal(result.total, expectedResults[i].total);
+      t.equal(typeof result.source, 'object');
+    });
   });
 
 });
@@ -176,10 +181,17 @@ test('Multi-series', function multiSeriesTests(t) {
 
   var diceStrings = Object.keys(outcomesForDiceStrings);
   
-  t.plan(diceStrings.length);
+  t.plan(36);
 
   diceStrings.forEach(function rollString(diceString) {
-    t.deepEqual(cup.roll(diceString), outcomesForDiceStrings[diceString]);
+    var results = cup.roll(diceString);
+    var expectedResults = outcomesForDiceStrings[diceString];
+
+    results.forEach(function checkResult(result, i) { 
+      t.deepEqual(result.rolls, expectedResults[i].rolls);
+      t.equal(result.total, expectedResults[i].total);
+      t.equal(typeof result.source, 'object');
+    });
   });
 
 });
@@ -202,6 +214,20 @@ test('No dice in string', function noDiceInString(t) {
   });
 
   t.deepEqual(cup.roll('fhqwhgads'), []);
+});
+
+
+test('Just numbers, no dice', function noDiceJustNumbersTest(t) {
+  t.plan(1);
+  
+  var cup = createDiceCup({
+    probable: mockProbable
+  });
+
+  var results = cup.roll('justnumbers+600');
+  t.deepEqual(results, [], 
+    'If there are no dice in the string, returns an empty array.'
+  );
 });
 
 test('Face limits', function testFaceLimits(t) {
