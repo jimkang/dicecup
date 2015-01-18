@@ -5,7 +5,6 @@ function createDiceCup(opts) {
   var probable = probableModule;
   var numberOfRollsLimit;
   var numberOfFacesOnLargestDie;
-  var error;
 
   if (opts) {
     if (opts.probable) {
@@ -24,40 +23,43 @@ function createDiceCup(opts) {
     var parsedDiceSpecs = dieStrings.map(parse);
     parsedDiceSpecs = parsedDiceSpecs.filter(_.isObject);
 
-    if (parsedDiceSpecs.some(specHasTooManyDice)) {
+    return parsedDiceSpecs.map(rollDie);
+  }
+
+  function rollDie(diceSpec) {    
+    var result = {
+      rolls: [],
+      total: NaN,
+      source: diceSpec
+    };
+
+    var error = errorForDiceSpec(diceSpec);
+    if (error) {
+      result.error = error;
+    }
+    else {
+      for (var i = 0; i < diceSpec.times; ++i) {
+        result.rolls.push(probable.rollDie(diceSpec.faces));
+      }
+      result.total = result.rolls.reduce(add, 0) + diceSpec.modifier;
+    }
+
+    return result;    
+  }
+
+  function errorForDiceSpec(diceSpec) {
+    var error;
+
+    if (specHasTooManyDice(diceSpec)) {
       error = new Error('I can\'t roll that many times.');
       error.name = 'Too many rolls';
     }
-    else if (parsedDiceSpecs.some(specHasTooManyFaces)) {
+    else if (specHasTooManyFaces(diceSpec)) {
       error = new Error('I don\'t have a die with that many faces.');
       error.name = 'Not enough faces';
     }
 
-    if (error) {
-      return {
-        error: error,
-        rolls: [],
-        total: NaN        
-      };
-    }
-    else {
-      return parsedDiceSpecs.map(rollDie);
-    }
-  }
-
-  function rollDie(diceSpec) {    
-    var results = {
-      rolls: [],
-      total: 0,
-      source: diceSpec
-    };
-
-    for (var i = 0; i < diceSpec.times; ++i) {
-      results.rolls.push(probable.rollDie(diceSpec.faces));
-    }
-    results.total = results.rolls.reduce(add, 0) + diceSpec.modifier;
-
-    return results;
+    return error;
   }
 
   function specHasTooManyDice(diceSpec) {

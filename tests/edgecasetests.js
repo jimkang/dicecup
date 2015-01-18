@@ -37,7 +37,7 @@ test('Just numbers, no dice', function noDiceJustNumbersTest(t) {
 });
 
 test('Face limits', function testFaceLimits(t) {
-  t.plan(4);
+  t.plan(6);
 
   var cup = createDiceCup({
     probable: fixtures.mockProbable,
@@ -45,23 +45,28 @@ test('Face limits', function testFaceLimits(t) {
     numberOfRollsLimit: 125000
   });
 
-  var result = cup.roll('2d4 125000d50001');
+  var results = cup.roll('2d4 125000d50001');
+
+  t.equal(results[0].total, 8, 'The first result is fine and has a total.');
+  t.deepEqual(results[0].rolls, [4, 4], 'The first result has rolls.');
+
   t.equal(
-    result.error.name, 
+    results[1].error.name,
     'Not enough faces',
     'It returns a "Not enough faces" error.'
   );
   t.equal(
-    result.error.message, 
+    results[1].error.message, 
     'I don\'t have a die with that many faces.',
     'It returns an error that says it can\'t roll a die with that many faces.'
   );
-  t.deepEqual(result.rolls, [], 'It returns no rolls.');
-  t.ok(isNaN(result.total), 'It returns a total of NaN.');
+  t.deepEqual(results[1].rolls, [], 'It returns no rolls.');
+  t.ok(isNaN(results[1].total), 'It returns a total of NaN.');
+
 });
 
 test('Number of rolls limits', function numberOfRollsLimits(t) {
-  t.plan(4);
+  t.plan(6);
   
   var cup = createDiceCup({
     probable: fixtures.mockProbable,
@@ -69,18 +74,24 @@ test('Number of rolls limits', function numberOfRollsLimits(t) {
     numberOfRollsLimit: 125000
   });
 
-  var result = cup.roll('125001d50000 10d6');
+  var results = cup.roll('125001d50000 10d6');
 
   t.equal(
-    result.error.name, 
+    results[0].error.name, 
     'Too many rolls',
     'It returns a "Too many rolls" error.'
   );
   t.equal(
-    result.error.message, 
+    results[0].error.message, 
     'I can\'t roll that many times.',
     'It returns an error that says it can\'t roll that many times.'
   );
-  t.deepEqual(result.rolls, [], 'It returns no rolls.');
-  t.ok(isNaN(result.total), 'It returns a total of NaN.');
+  t.deepEqual(results[0].rolls, [], 'It returns no rolls.');
+  t.ok(isNaN(results[0].total), 'It returns a total of NaN.');
+
+  t.equal(results[1].total, 60, 'The second result is fine and has a total.');
+  t.deepEqual(results[1].rolls, [6, 6, 6, 6, 6, 6, 6, 6, 6, 6], 
+    'The second result has rolls.'
+  );
+
 });

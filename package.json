@@ -1,6 +1,6 @@
 {
   "name": "dicecup",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Interprets strings (e.g. '1d6+1') to roll dice.",
   "main": "dicecup.js",
   "bin": {
