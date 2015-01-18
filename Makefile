@@ -1,2 +1,4 @@
 test:
-	node tests/basictests.js
+	node tests/singleseriestests.js
+	node tests/edgecasetests.js
+	node tests/multiseriestests.js
