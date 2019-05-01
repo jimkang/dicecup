@@ -21,11 +21,10 @@
   },
   "homepage": "https://github.com/jimkang/dicecup",
   "devDependencies": {
-    "tape": "^3.0.3"
+    "tape": "^4.10.1"
   },
   "dependencies": {
-    "lodash": "^2.4.1",
-    "node-dice-js": "^0.1.2",
+    "lodash.isobject": "^3.0.2",
     "probable": "^1.1.0"
   }
 }

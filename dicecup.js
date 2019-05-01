@@ -1,5 +1,5 @@
 var probableModule = require('probable');
-var _ = require('lodash');
+var isObject = require('lodash.isobject');
 
 function createDiceCup(opts) {
   var probable = probableModule;
@@ -21,7 +21,7 @@ function createDiceCup(opts) {
   function rollDice(diceString) {
     var dieStrings = diceString.trim().split(' ');
     var parsedDiceSpecs = dieStrings.map(parse);
-    parsedDiceSpecs = parsedDiceSpecs.filter(_.isObject);
+    parsedDiceSpecs = parsedDiceSpecs.filter(isObject);
 
     return parsedDiceSpecs.map(rollDie);
   }
