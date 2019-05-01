@@ -14,7 +14,7 @@ test('Single-series', function singleSeriesTests(t) {
         total: 6
       }
     ],
-    'd4': [
+    d4: [
       {
         rolls: [4],
         total: 4
@@ -32,7 +32,7 @@ test('Single-series', function singleSeriesTests(t) {
         total: 19
       }
     ],
-    'd20': [
+    d20: [
       {
         rolls: [20],
         total: 20
@@ -50,7 +50,7 @@ test('Single-series', function singleSeriesTests(t) {
         total: -1
       }
     ],
-    'asdf8d12': [
+    asdf8d12: [
       {
         rolls: fixtures.createRepeatArray(12, 8),
         total: 96
@@ -80,21 +80,20 @@ test('Single-series', function singleSeriesTests(t) {
         total: 20
       }
     ]
-  }
+  };
 
   var diceStrings = Object.keys(outcomesForDiceStrings);
-  
+
   t.plan(diceStrings.length * 3);
-  
+
   diceStrings.forEach(function rollString(diceString) {
     var results = cup.roll(diceString);
     var expectedResults = outcomesForDiceStrings[diceString];
 
-    results.forEach(function checkResult(result, i) { 
+    results.forEach(function checkResult(result, i) {
       t.deepEqual(result.rolls, expectedResults[i].rolls);
       t.equal(result.total, expectedResults[i].total);
       t.equal(typeof result.source, 'object');
     });
   });
-
 });

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* global process */
+
 var createDiceCup = require('./dicecup');
 
 if (process.argv.length < 3) {

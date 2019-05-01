@@ -16,19 +16,19 @@ test('Multi-series', function multiSeriesTests(t) {
       {
         rolls: [6, 6, 6],
         total: 18
-      },      
+      },
       {
         rolls: [6, 6, 6],
         total: 18
-      },      
+      },
       {
         rolls: [6, 6, 6],
         total: 18
-      },      
+      },
       {
         rolls: [6, 6, 6],
         total: 18
-      },      
+      },
       {
         rolls: [6, 6, 6],
         total: 18
@@ -62,21 +62,20 @@ test('Multi-series', function multiSeriesTests(t) {
         total: 240
       }
     ]
-  }
+  };
 
   t.plan(36);
 
-  var diceStrings = Object.keys(outcomesForDiceStrings);  
+  var diceStrings = Object.keys(outcomesForDiceStrings);
 
   diceStrings.forEach(function rollString(diceString) {
     var results = cup.roll(diceString);
     var expectedResults = outcomesForDiceStrings[diceString];
 
-    results.forEach(function checkResult(result, i) { 
+    results.forEach(function checkResult(result, i) {
       t.deepEqual(result.rolls, expectedResults[i].rolls);
       t.equal(result.total, expectedResults[i].total);
       t.equal(typeof result.source, 'object');
     });
   });
-
 });

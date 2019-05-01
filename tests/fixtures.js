@@ -1,5 +1,5 @@
-// For reduced test confusion, we're using a mock version of probable that 
-// doesn't actually return random results. This way we can easily predict what 
+// For reduced test confusion, we're using a mock version of probable that
+// doesn't actually return random results. This way we can easily predict what
 // the results should be.
 
 var mockProbable = {
