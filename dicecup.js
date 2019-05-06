@@ -40,7 +40,9 @@ function createDiceCup(opts) {
       for (var i = 0; i < diceSpec.times; ++i) {
         result.rolls.push(probable.rollDie(diceSpec.faces));
       }
-      result.total = result.rolls.reduce(add, 0) + diceSpec.modifier;
+      result.total = result.rolls.reduce(add, 0);
+      result.total *= diceSpec.multiplier;
+      result.total += diceSpec.modifier;
     }
 
     return result;
@@ -116,13 +118,13 @@ function parse(command) {
   parsed.highest = highest;
 
   // determine the multiplier
-  var multiplier = command.match(/(?!d\d+)x(\d+)/);
+  var multiplier = command.match(/(?!d\d+)x([\d.]+)/);
   parsed.multiplier =
-    (multiplier && multiplier[1] && parseInt(multiplier[1])) || 1;
+    (multiplier && multiplier[1] && parseFloat(multiplier[1])) || 1;
 
   // determine the modifier
-  var modifier = command.match(/(\+\d+\)?|-\d+)\)?/);
-  parsed.modifier = (modifier && modifier[1] && parseInt(modifier[1])) || 0;
+  var modifier = command.match(/(\+[\d.]+\)?|-[\d.]+)\)?/);
+  parsed.modifier = (modifier && modifier[1] && parseFloat(modifier[1])) || 0;
 
   // determine if we need to repeat at all
   var repeat = command.match(/^(\d+)x\(|\)x(\d+)$/);

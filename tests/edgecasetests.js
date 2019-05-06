@@ -1,6 +1,8 @@
 var test = require('tape');
 var createDiceCup = require('../dicecup');
 var fixtures = require('./fixtures');
+var seedrandom = require('seedrandom');
+var Probable = require('probable').createProbable;
 
 test('No opts', function testNoOps(t) {
   t.plan(2);
@@ -96,3 +98,21 @@ test('Number of rolls limits', function numberOfRollsLimits(t) {
     'The second result has rolls.'
   );
 });
+
+test('Fractional arithmetic', fractionalTest);
+
+function fractionalTest(t) {
+  var probable = Probable({ random: seedrandom('fractional') });
+  var cup = createDiceCup({ probable });
+
+  var additionResult = cup.roll('d10+0.2');
+  t.equal(additionResult[0].total, 6.2, 'Fraction is added to result.');
+
+  var multiplicationResult = cup.roll('2d20x4.73+10.5');
+  t.equal(
+    multiplicationResult[0].total,
+    86.18,
+    'Fraction is multipled onto result.'
+  );
+  t.end();
+}
