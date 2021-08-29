@@ -7,7 +7,9 @@
     "cup": "./cup.js"
   },
   "scripts": {
-    "test": "make test"
+    "test": "make test",
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
   },
   "repository": {
     "type": "git",
@@ -22,7 +24,15 @@
   "homepage": "https://github.com/jimkang/dicecup",
   "devDependencies": {
     "seedrandom": "^3.0.1",
-    "tape": "^4.10.1"
+    "tape": "^4.10.1",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "eslint": "^7.24.0",
+    "rollup": "^2.50.6",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "sirv-cli": "^1.0.12"
   },
   "dependencies": {
     "lodash.isobject": "^3.0.2",
