@@ -18,7 +18,12 @@ var cup;
 
 function runRoll() {
   var results = cup.roll(textInput.value);
-  totalField.textContent = results.map((result) => result.total).join(', ');
+  const total = results.map((result) => result.total).join(', ');
+  if (totalField.textContent) {
+    totalField.textContent = totalField.textContent + ', ';
+  }
+  totalField.textContent = totalField.textContent + total;
+
   resultField.textContent = JSON.stringify(results, null, 2);
 }
 
